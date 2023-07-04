@@ -24,6 +24,3 @@ jobs:
 
       - name: Install Newman (Postman CLI)
         run: npm install -g newman
-
-      - name: Run Postman collection
-        run: newman run path/to/your/collection.json
