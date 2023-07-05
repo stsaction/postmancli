@@ -29,4 +29,4 @@ jobs:
 
       - name: Run Postman tests
         run: |
-          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --iteration-data "data.csv" -r create-test-scripts.js
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" -r create-test-scripts.js
