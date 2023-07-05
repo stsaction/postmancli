@@ -31,3 +31,4 @@ jobs:
         run: |
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --global-var "customTestScript=create-test-scripts.js"
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Update" --global-var "customTestScript=update-test-scripts.js"
+          
