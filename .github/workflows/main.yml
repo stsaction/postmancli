@@ -12,6 +12,7 @@ jobs:
       SERVER_USERNAME: ${{ secrets.REMOTE_USERNAME }}
       SERVER_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
       SERVER_PORT: ${{ secrets.SERVER_PORT }}
+      POSTMAN_ENVIRONMENT: ${{ secrets.POSTMAN_ENVIRONMENT }}
 
 
     steps:
