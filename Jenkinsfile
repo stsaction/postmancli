@@ -5,7 +5,7 @@ pipeline {
     stage('Trigger GitHub Action') {
       steps {
         script {
-          def githubApiUrl = 'https://api.github.com'
+          def githubApiUrl = 'https://github.com'
           def repository = 'stsaction/postmancli'
           def workflow = '.github/workflows/workflow.yml'
           def token = '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'
