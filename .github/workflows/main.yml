@@ -35,25 +35,4 @@ jobs:
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Get" --global-var "customTestScript=get-test-scripts.js" 
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Delete" --global-var "customTestScript=delete-test-scripts.js"
     
-      - name: Trigger Workflow via API
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          API_TOKEN: ${{ secrets.YOUR_API_TOKEN }}
-        run: |
-          $headers = @{
-            "Accept" = "application/vnd.github.v3+json"
-            "Authorization" = "Bearer $env:API_TOKEN"
-          }
 
-          $body = @{
-            "ref" = "main"
-            "inputs" = @{
-              "key1" = "value1"
-              "key2" = "value2"
-            }
-          } | ConvertTo-Json
-
-          Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/actions/workflows/${{ github.workflow }}/dispatches" `
-            -Method POST `
-            -Headers $headers `
-            -Body $body
