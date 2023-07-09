@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-   #   - main
+      - main
 jobs:
   build:
     runs-on: self-hosted
@@ -21,15 +21,15 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+#        uses: actions/setup-node@v2
         with:
           node-version: 14
 
-      - name: Install dependencies
+#      - name: Install dependencies
         run: npm install --global newman
 
       - name: Run Postman tests
-        run: |
+           run: |
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --global-var "customTestScript=create-test-scripts.js"
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Update" --global-var "customTestScript=update-test-scripts.js"
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Get" --global-var "customTestScript=get-test-scripts.js" 
