@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+   #   - main
 jobs:
   build:
     runs-on: self-hosted
@@ -17,8 +17,8 @@ jobs:
       API_TOKEN: ${{ secrets.YOUR_API_TOKEN }}
 
     steps:
-      #- name: Checkout code
-     #   uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         
       - name: Set up Node.js
         uses: actions/setup-node@v2
