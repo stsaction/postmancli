@@ -14,7 +14,7 @@ jobs:
       SERVER_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
       SERVER_PORT: ${{ secrets.SERVER_PORT }}
       POSTMAN_ENVIRONMENT: ${{ secrets.POSTMAN_ENVIRONMENT }}
-
+      API_TOKEN: ${{ secrets.YOUR_API_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -35,4 +35,19 @@ jobs:
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Get" --global-var "customTestScript=get-test-scripts.js" 
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Delete" --global-var "customTestScript=delete-test-scripts.js"
     
-    
+      - name: Trigger Workflow via API
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          API_TOKEN: ${{ secrets.YOUR_API_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $API_TOKEN" \
+            -d '{
+              "ref": "main",
+              "inputs": {
+                "key1": "value1",
+                "key2": "value2"
+              }
+            }' \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/${{ github.workflow }}/dispatches
