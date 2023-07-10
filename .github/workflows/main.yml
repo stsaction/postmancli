@@ -35,7 +35,9 @@ jobs:
 
       - name: Install Newman and reporters
         run: |
+          npm install --global newman newman-reporter-html
           npm install --global newman newman-reporter-cli newman-reporter-htmlextra
+
 
       - name: Run Postman tests
         run: |
