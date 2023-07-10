@@ -1,52 +1,45 @@
-name: CI
-
+name: Test-Build
 on:
   push:
-    branches: main
-  pull_request:
-    branches: main
-    
-  workflow_dispatch:
-    inputs:
-      runJob:
-        description: 'Execute all jobs'
-        required: false
-        default: 'true'
-
+    branches:
+      - main
 jobs:
-  build:
-    runs-on: self-hosted
-    env:
-      SERVER_IP: ${{ secrets.SERVER_IP }}
-      SERVER_USERNAME: ${{ secrets.REMOTE_USERNAME }}
-      SERVER_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
-      SERVER_PORT: ${{ secrets.SERVER_PORT }}
-      POSTMAN_ENVIRONMENT: ${{ secrets.POSTMAN_ENVIRONMENT }}
-      API_TOKEN: ${{ secrets.YOUR_API_TOKEN }}
-
+  test-api:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v2
+
+      # INstall Node on the runner
+      - name: Install Node
+        uses: actions/setup-node@v1
         with:
-          node-version: 14
-          
-      - name: Install Newman and reporters
-        run: |
-          npm install --global newman newman-reporter-html
+          node-version: "12.x"
 
-      - name: Run Newman
-        run: |
-          newman run Sample_APIs.postman_collection.json \
-            --environment Sample_environment.postman_environment.json \
-            --folder "Create" \
-            --global-var "customTestScript=create-test-scripts.js"
-        if: ${{ steps.RunNewman.outcome != 'success' }}
-        # Mark the step as failed if the exit status is non-zero
-        # continue-on-error: false
 
-      - name: Run Manual Tests
+      # Install the newman command line utility and also install the html extra reporter
+      - name: Install newman
         run: |
-          node run-manual-tests.js
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+
+      # Make directory to upload the test results
+      - name: Make Directory for results
+        run: mkdir -p testResults
+
+
+      # Run the POSTMAN collection
+      - name: Run POSTMAN collection
+        run: |
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --global-var "customTestScript=create-test-scripts.js"
+
+
+      # Upload the contents of Test Results directory to workspace
+      - name: Output the run Details
+        uses: actions/upload-artifact@v2
+        with:
+          name: RunReports
+          path: testResults
+
