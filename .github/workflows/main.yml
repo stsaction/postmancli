@@ -32,12 +32,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-
+          
       - name: Install Newman and reporters
         run: |
           npm install --global newman newman-reporter-html
-          npm install --global newman newman-reporter-cli newman-reporter-htmlextra
-          
+
       - name: Run Newman
         run: |
           newman run Sample_APIs.postman_collection.json \
@@ -46,9 +45,8 @@ jobs:
             --global-var "customTestScript=create-test-scripts.js"
         if: ${{ steps.RunNewman.outcome != 'success' }}
         # Mark the step as failed if the exit status is non-zero
-     #   continue-on-error: false
+        # continue-on-error: false
 
-      - name: Run Postman tests
+      - name: Run Manual Tests
         run: |
-          newman run Sample_APIs.postman_collection.json --folder "Create" --environment Sample_environment.postman_environment.json --script create-test-scripts.js --reporters cli,htmlextra --reporter-htmlextra-export test-results.html
-
+          node run-manual-tests.js
