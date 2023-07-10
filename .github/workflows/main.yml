@@ -37,10 +37,19 @@ jobs:
         
       - name: Install Chai
         run: npm install --save-dev chai    
+        
+      - name: Run Postman tests - Create
+        run: mocha create-test-scripts.js --reporter spec
+        continue-on-error: false
 
-      - name: Run Postman tests
-        run: |
-           mocha create-test-scripts.js --reporter spec
-           mocha delete-test-scripts.js
-           mocha get-test-scripts.js
-           mocha update-test-scripts.js
+      - name: Run Postman tests - Delete
+        run: mocha delete-test-scripts.js --reporter spec
+        continue-on-error: false
+
+      - name: Run Postman tests - Get
+        run: mocha get-test-scripts.js --reporter spec
+        continue-on-error: false
+
+      - name: Run Postman tests - Update
+        run: mocha update-test-scripts.js --reporter spec
+        continue-on-error: false
