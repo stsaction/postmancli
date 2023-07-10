@@ -37,7 +37,16 @@ jobs:
         run: |
           npm install --global newman newman-reporter-html
           npm install --global newman newman-reporter-cli newman-reporter-htmlextra
-
+          
+      - name: Run Newman
+        run: |
+          newman run Sample_APIs.postman_collection.json \
+            --environment Sample_environment.postman_environment.json \
+            --folder "Create" \
+            --global-var "customTestScript=create-test-scripts.js"
+        if: ${{ steps.RunNewman.outcome != 'success' }}
+        # Mark the step as failed if the exit status is non-zero
+     #   continue-on-error: false
 
       - name: Run Postman tests
         run: |
