@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Postman tests
         run: |
-          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --global-var "customTestScript=create-test-scripts.js"
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --global-var "customTestScript=create-test-scripts.js"  --reporters cli,junit --reporter-junit-export test-results.xml
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Update" --global-var "customTestScript=update-test-scripts.js"
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Get" --global-var "customTestScript=get-test-scripts.js" 
           newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Delete" --global-var "customTestScript=delete-test-scripts.js"
