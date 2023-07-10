@@ -32,9 +32,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+
+      - name: Install Dependencies
+        run: npm install --global mocha chai
           
       - name: Install Postman SDK
         run: npm install --global postman-collection@latest postman-runtime@latest
 
       - name: Run Postman tests
-        run: node create-test-scripts.js
+        run: mocha create-test-scripts.js
