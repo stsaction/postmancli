@@ -1,11 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: main
-  pull_request:
-    branches: main
-    
   workflow_dispatch:
     inputs:
       runJob:
@@ -45,7 +40,7 @@ jobs:
 
       - name: Run Postman tests
         run: |
-           mocha create-test-scripts.js
+           mocha create-test-scripts.js --reporter spec
            mocha delete-test-scripts.js
            mocha get-test-scripts.js
            mocha update-test-scripts.js
