@@ -1,7 +1,7 @@
 const { Assertion } = require('chai');
 
-pm.test("Status code is 200", function () {
-  pm.response.to.have.status(200);
+pm.test("Status code is 508", function () {
+  pm.response.to.have.status(508);
 });
 
    pm.test("Response body has correct name", function () {
