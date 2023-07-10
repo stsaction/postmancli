@@ -1,0 +1,36 @@
+name: Postman
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    env:
+      SERVER_IP: ${{ secrets.SERVER_IP }}
+      SERVER_USERNAME: ${{ secrets.REMOTE_USERNAME }}
+      SERVER_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
+      SERVER_PORT: ${{ secrets.SERVER_PORT }}
+      POSTMAN_ENVIRONMENT: ${{ secrets.POSTMAN_ENVIRONMENT }}
+      API_TOKEN: ${{ secrets.YOUR_API_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install --global newman
+
+      - name: Run Postman tests
+          run: |
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Create" --global-var "customTestScript=create-test-scripts.js"
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Update" --global-var "customTestScript=update-test-scripts.js"
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Get" --global-var "customTestScript=get-test-scripts.js" 
+          newman run Sample_APIs.postman_collection.json --environment Sample_environment.postman_environment.json --folder "Delete" --global-var "customTestScript=delete-test-scripts.js"
+    
+
