@@ -34,7 +34,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: npm install --global newman
+        run: npm install --global newman  newman-reporter-cli newman-reporter-junit
 
       - name: Run Postman tests
         run: |
