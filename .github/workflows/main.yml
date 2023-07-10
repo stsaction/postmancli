@@ -38,6 +38,10 @@ jobs:
           
       - name: Install Postman SDK
         run: npm install --global postman-collection@latest postman-runtime@latest
+        
+        
+      - name: Install Chai
+        run: npm install --save-dev chai    
 
       - name: Run Postman tests
         run: mocha create-test-scripts.js
