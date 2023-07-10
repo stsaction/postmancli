@@ -2,10 +2,11 @@ name: CI
 
 on:
   workflow_dispatch:
-  workflow_run:
-   workflows: ["CI"]
-   types:
-    - requested
+    inputs:
+      runJob:
+        description: 'Execute all jobs'
+        required: false
+        default: 'true'
 
 jobs:
   build:
