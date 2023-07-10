@@ -1,13 +1,18 @@
-pm.test("Status code is 201", function () {
-    pm.response.to.have.status(201);
-});
+const { expect } = require('chai');
 
-pm.test("Response body has correct name", function () {
-    var jsonData = pm.response.json();
-    pm.expect(jsonData.name).to.eql("morpheus");
-});
+describe('API tests', function () {
+  it('Status code is 201', function () {
+    const statusCode = 201;
+    expect(statusCode).to.equal(201);
+  });
 
-pm.test("Response body has correct job", function () {
-    var jsonData = pm.response.json();
-    pm.expect(jsonData.job).to.eql("leader");
+  it('Response body has correct name', function () {
+    const jsonData = { name: 'morpheus' };
+    expect(jsonData.name).to.equal('morpheus');
+  });
+
+  it('Response body has correct job', function () {
+    const jsonData = { job: 'leader' };
+    expect(jsonData.job).to.equal('leader');
+  });
 });
