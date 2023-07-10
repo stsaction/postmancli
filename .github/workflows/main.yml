@@ -39,7 +39,8 @@ jobs:
         run: npm install --save-dev chai    
         
       - name: Run Postman tests - Create
-        run: mocha create-test-scripts.js --reporter spec || exit 1
+        run: mocha create-test-scripts.js --reporter spec
+          if ($LASTEXITCODE -ne 0) { exit 1 }
         continue-on-error: false
 
       - name: Run Postman tests - Delete
