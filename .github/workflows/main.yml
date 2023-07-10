@@ -46,4 +46,4 @@ jobs:
 
       - name: Run Manual Tests
         run: |
-          node run-manual-tests.js
+          node create-test-scripts.js
