@@ -1,15 +1,18 @@
 const { Assertion } = require('chai');
 
 pm.test("Status code is 200", function () {
-  pm.response.to.have.status(200);
+  // Change the expected status code to 500 to intentionally fail
+  pm.response.to.have.status(500);
 });
 
-   pm.test("Response body has correct name", function () {
+pm.test("Response body has correct name", function () {
   var jsonData = pm.response.json();
-  Assertion.equal(jsonData.name, "morpheus");
+  // Change the expected name to "wrong_name" to intentionally fail
+  Assertion.equal(jsonData.name, "wrong_name");
 });
 
 pm.test("Response body has correct job", function () {
   var jsonData = pm.response.json();
-  Assertion.equal(jsonData.job, "leader");
+  // Change the expected job to "wrong_job" to intentionally fail
+  Assertion.equal(jsonData.job, "wrong_job");
 });
