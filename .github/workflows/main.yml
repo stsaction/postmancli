@@ -44,4 +44,8 @@ jobs:
         run: npm install --save-dev chai    
 
       - name: Run Postman tests
-        run: mocha create-test-scripts.js
+        run: |
+           mocha create-test-scripts.js
+           mocha delete-test-scripts.js
+           mocha get-test-scripts.js
+           mocha update-test-scripts.js
