@@ -6,7 +6,7 @@ pm.test("Status code is 508", function () {
 
    pm.test("Response body has correct name", function () {
   var jsonData = pm.response.json();
-  Assertion.equal(jsonData.name, "morpheus");
+  Assertion.equal(jsonData.name, "./");
 });
 
 pm.test("Response body has correct job", function () {
