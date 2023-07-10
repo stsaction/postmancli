@@ -41,16 +41,16 @@ jobs:
       - name: Run Postman tests - Create
         run: mocha create-test-scripts.js --reporter spec
           if ($LASTEXITCODE -ne 0) { exit 1 }
-        continue-on-error: false
 
       - name: Run Postman tests - Delete
         run: mocha delete-test-scripts.js --reporter spec
-        continue-on-error: false
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: Run Postman tests - Get
         run: mocha get-test-scripts.js --reporter spec
-        continue-on-error: false
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: Run Postman tests - Update
         run: mocha update-test-scripts.js --reporter spec
-        continue-on-error: false
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
